@@ -21,38 +21,28 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/users")
-    public ResponseEntity<List<UserDTO>> getUsers() {
-
-        List<UserDTO> users = userService.getUsers().stream().map(this::userToUserDTO).collect(Collectors.toList());
-
-        return ResponseEntity.ok(users);
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<List<UserDTO>> getAllUsers() {
+        try {
+            return ResponseEntity.ok(userService.getAllUsers());
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
+        }
     }
 
     @GetMapping("/user/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<UserDTO> getUser(@PathVariable Long id) {
-
-        UserEntity user = userService.getUser(id);
-        if (user == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
+        try {
+            return ResponseEntity.ok(userService.getUser(id));
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
         }
-        return ResponseEntity.ok(userToUserDTO(user));
-    }
-
-    @GetMapping("/allUsers")
-    @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<List<UserEntity>> getAllUsers() {
-        List<UserEntity> users = userService.getUsers();
-        if (users.isEmpty()) {
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.ok(users);
     }
 
     @PostMapping("/user")
     @ResponseStatus(value = HttpStatus.CREATED, reason = "User created successfully")
     public UserEntity createUser( @Valid @RequestBody UserEntity user) {
-
         try {
             return userService.createUser(user);
         } catch (Exception e) {
@@ -62,8 +52,7 @@ public class UserController {
 
     @PutMapping("/user/{id}")
     @ResponseStatus(value = HttpStatus.OK, reason = "User updated successfully")
-    public UserEntity updateUser(@PathVariable Long id, @Valid @RequestBody UserEntity user) {
-
+    public UserDTO updateUser(@PathVariable Long id, @Valid @RequestBody UserDTO user) {
         try {
             return userService.updateUser(id, user);
         } catch (Exception e) {
@@ -82,13 +71,4 @@ public class UserController {
         }
     }
 
-    private UserDTO userToUserDTO(UserEntity userEntity) {
-
-        UserDTO userDTO = new UserDTO();
-//        userDTO.setId(userEntity.getId());
-        userDTO.setName(userEntity.getName());
-        userDTO.setLastName(userEntity.getLastName());
-        userDTO.setEmail(userEntity.getEmail());
-        return userDTO;
-    }
 }
