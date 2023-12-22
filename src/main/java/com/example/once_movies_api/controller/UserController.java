@@ -2,6 +2,7 @@ package com.example.once_movies_api.controller;
 
 import com.example.once_movies_api.dto.UserDTO;
 import com.example.once_movies_api.entity.UserEntity;
+import com.example.once_movies_api.exception.ResourceNotFoundException;
 import com.example.once_movies_api.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -26,7 +26,8 @@ public class UserController {
         try {
             return ResponseEntity.ok(userService.getAllUsers());
         } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
+//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
+            throw new ResourceNotFoundException(e.getMessage());
         }
     }
 
@@ -36,7 +37,8 @@ public class UserController {
         try {
             return ResponseEntity.ok(userService.getUser(id));
         } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
+//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage(), e);
+            throw new ResourceNotFoundException(e.getMessage());
         }
     }
 

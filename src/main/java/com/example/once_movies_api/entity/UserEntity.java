@@ -1,11 +1,8 @@
 package com.example.once_movies_api.entity;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
 
@@ -25,10 +22,14 @@ public class UserEntity {
     private String lastName;
 
     @NotBlank(message = "Email cannot be blank")
+    @Column(unique = true, nullable = false)
     private String email;
 
-    @NotBlank(message = "Password cannot be blank")
+//    @NotBlank(message = "Password cannot be blank")
 //    @JsonIgnore
+    @NotBlank(message = "Password cannot be blank")
+    @Column(nullable = false)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     public Long getId() {
