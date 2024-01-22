@@ -1,13 +1,8 @@
 package com.example.once_movies_api.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Table;
-import jakarta.persistence.Column;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 
 import java.util.List;
 
@@ -20,13 +15,11 @@ public class CategoryEntity {
     @Column(name = "id_category")
     private Long id;
 
-    @NotBlank
+    @NotBlank(message = "The title cannot be empty")
     private String title;
 
-    @NotBlank
-    private String description;
 
-    @ManyToMany(mappedBy = "categories") // name of the property in the MovieEntity
+    @ManyToMany(mappedBy = "categories", fetch = FetchType.LAZY) // name of the property in the MovieEntity
     private List<MovieEntity> movies;
 
     public Long getId() {
@@ -43,14 +36,6 @@ public class CategoryEntity {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public List<MovieEntity> getMovies() {

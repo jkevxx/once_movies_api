@@ -12,7 +12,6 @@ public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @JsonIgnore
     private Long id;
 
     @NotBlank(message = "Name cannot be blank")
@@ -25,11 +24,9 @@ public class UserEntity {
     @Column(unique = true, nullable = false)
     private String email;
 
-//    @NotBlank(message = "Password cannot be blank")
-//    @JsonIgnore
     @NotBlank(message = "Password cannot be blank")
     @Column(nullable = false)
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+//    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     public Long getId() {

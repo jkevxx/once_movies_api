@@ -7,16 +7,13 @@ import java.util.List;
 public class ApiException {
 
     private final String message;
-    private final HttpStatus status;
-
-    private final Long statusCode;
+    private final Long status;
 
     private final List<String> errors;
 
-    public ApiException(String message, HttpStatus status, Long statusCode, List<String> errors) {
+    public ApiException(String message, Long status, List<String> errors) {
         this.message = message;
         this.status = status;
-        this.statusCode = statusCode;
         this.errors = errors;
     }
 
@@ -24,12 +21,8 @@ public class ApiException {
         return message;
     }
 
-    public HttpStatus getStatus() {
+    public Long getStatus() {
         return status;
-    }
-
-    public Long getStatusCode() {
-        return statusCode;
     }
 
     public List<String> getErrors() {

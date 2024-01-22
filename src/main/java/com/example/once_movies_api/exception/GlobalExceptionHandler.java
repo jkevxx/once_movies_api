@@ -18,11 +18,11 @@ import java.util.stream.Collectors;
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<Object> handleResourceNotFoundException(ResourceNotFoundException e){
+    public ResponseEntity<Object> handleResourceNotFoundException(ResourceNotFoundException e) {
         List<String> details = new ArrayList<String>();
         details.add(e.getMessage());
 
-        ApiException apiException = new ApiException(e.getMessage(), HttpStatus.NOT_FOUND, 404L, details);
+        ApiException apiException = new ApiException(e.getMessage(), 404L, details);
 
         return new ResponseEntity<>(apiException, HttpStatus.NOT_FOUND);
     }
@@ -33,7 +33,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         List<String> details = new ArrayList<>();
         details = ex.getBindingResult().getFieldErrors().stream().map(error -> error.getField() + " : " + error.getDefaultMessage()).collect(Collectors.toList());
 
-        ApiException apiException = new ApiException("Validation Failed", HttpStatus.BAD_REQUEST, 400L,details );
+        ApiException apiException = new ApiException("Validation Failed", 400L, details);
 
         return new ResponseEntity<>(apiException, HttpStatus.BAD_REQUEST);
     }

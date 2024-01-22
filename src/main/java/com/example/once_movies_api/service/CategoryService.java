@@ -1,18 +1,19 @@
 package com.example.once_movies_api.service;
 
+import com.example.once_movies_api.dto.CategoryDTO;
 import com.example.once_movies_api.entity.CategoryEntity;
 
 import java.util.List;
 
 public interface CategoryService {
 
-    public List<CategoryEntity> getCategories();
+    List<CategoryDTO> getCategories();
 
-    public CategoryEntity getCategory(Long id);
+    CategoryDTO getCategory(Long id);
 
-    public CategoryEntity createCategory(CategoryEntity categoryEntity);
+    CategoryEntity createCategory(CategoryEntity categoryEntity);
 
-    public CategoryEntity updateCategory(Long id, CategoryEntity categoryEntity);
+    CategoryEntity updateCategory(Long id, CategoryEntity categoryEntity);
 
-    public void deleteCategory(Long id);
+    void deleteCategory(Long id);
 }

@@ -44,9 +44,9 @@ public class UserController {
 
     @PostMapping("/user")
     @ResponseStatus(value = HttpStatus.CREATED, reason = "User created successfully")
-    public UserEntity createUser( @Valid @RequestBody UserEntity user) {
+    public ResponseEntity<UserEntity> createUser( @Valid @RequestBody UserEntity user) {
         try {
-            return userService.createUser(user);
+            return ResponseEntity.ok(userService.createUser(user));
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
         }

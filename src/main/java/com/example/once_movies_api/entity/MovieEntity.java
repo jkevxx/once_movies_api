@@ -25,21 +25,21 @@ public class MovieEntity {
     @Column(name = "id_movie")
     private Long id;
 
-    @NotBlank
+    @NotBlank(message = "The title cannot be blank")
     private String title;
 
-    @NotBlank
+    @NotBlank(message = "The synopsis cannot be blank")
     private String synopsis;
 
-    @NotBlank
+    @NotBlank(message = "The release date cannot be blank")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate releaseDate;
 
-    @NotBlank
+    @NotBlank(message = "The trailer cannot be blank")
     private String TrailerYoutube;
 
     @NotBlank
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(targetEntity = CategoryEntity.class, fetch = FetchType.LAZY)
     @JoinTable(
             name = "movie_category",
             joinColumns = @JoinColumn(name = "id_movie"),
