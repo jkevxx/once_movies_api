@@ -11,6 +11,8 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.FetchType;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
@@ -31,14 +33,14 @@ public class MovieEntity {
     @NotBlank(message = "The synopsis cannot be blank")
     private String synopsis;
 
-    @NotBlank(message = "The release date cannot be blank")
+    @NotNull(message = "The release date cannot be null")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate releaseDate;
 
     @NotBlank(message = "The trailer cannot be blank")
-    private String TrailerYoutube;
+    private String trailerYoutube;
 
-    @NotBlank
+    @NotEmpty(message = "The categories cannot be empty")
     @ManyToMany(targetEntity = CategoryEntity.class, fetch = FetchType.LAZY)
     @JoinTable(
             name = "movie_category",
@@ -80,11 +82,11 @@ public class MovieEntity {
     }
 
     public String getTrailerYoutube() {
-        return TrailerYoutube;
+        return trailerYoutube;
     }
 
     public void setTrailerYoutube(String trailerYoutube) {
-        TrailerYoutube = trailerYoutube;
+        this.trailerYoutube = trailerYoutube;
     }
 
     public List<CategoryEntity> getCategories() {

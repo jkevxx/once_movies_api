@@ -42,7 +42,7 @@ public class CategoryController {
 
     @PostMapping("/category")
     @ResponseStatus(value = HttpStatus.CREATED, reason = "Category created")
-    public ResponseEntity<CategoryEntity> createCategory (@Valid @RequestBody CategoryEntity category){
+    public ResponseEntity<CategoryEntity> createCategory(@Valid @RequestBody CategoryEntity category) {
         try {
             return ResponseEntity.ok(categoryService.createCategory(category));
         } catch (Exception e) {
@@ -62,11 +62,11 @@ public class CategoryController {
 
     @DeleteMapping("/category/{id}")
     @ResponseStatus(value = HttpStatus.OK, reason = "Category deleted successfully")
-    public ResponseEntity<?> deleteCategory(@PathVariable Long id){
+    public ResponseEntity<?> deleteCategory(@PathVariable Long id) {
         try {
             categoryService.deleteCategory(id);
             return ResponseEntity.ok().build();
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
         }
     }

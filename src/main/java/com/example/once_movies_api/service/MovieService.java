@@ -1,14 +1,15 @@
 package com.example.once_movies_api.service;
 
+import com.example.once_movies_api.dto.MovieDTO;
 import com.example.once_movies_api.entity.MovieEntity;
 
 import java.util.List;
 
 public interface MovieService {
 
-    List<MovieEntity> getMovies();
+    List<MovieDTO> getMovies();
 
-    MovieEntity getMovie(Long id);
+    MovieDTO getMovie(Long id);
 
     MovieEntity createMovie(MovieEntity movieEntity);
 

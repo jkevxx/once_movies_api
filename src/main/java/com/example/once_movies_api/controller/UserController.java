@@ -44,7 +44,7 @@ public class UserController {
 
     @PostMapping("/user")
     @ResponseStatus(value = HttpStatus.CREATED, reason = "User created successfully")
-    public ResponseEntity<UserEntity> createUser( @Valid @RequestBody UserEntity user) {
+    public ResponseEntity<UserEntity> createUser(@Valid @RequestBody UserEntity user) {
         try {
             return ResponseEntity.ok(userService.createUser(user));
         } catch (Exception e) {
